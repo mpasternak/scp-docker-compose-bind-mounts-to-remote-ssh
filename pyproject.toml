@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "docker-compose-copy"
+version = "1.0.0"
+description = "Copy docker-compose bind mounts to remote Docker contexts over SSH"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+keywords = ["docker", "docker-compose", "ssh", "deployment", "devops"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: System :: Systems Administration",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.7"
+dependencies = [
+    "pyyaml>=5.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "black>=22.0",
+    "flake8>=4.0",
+]
+
+[project.scripts]
+docker-compose-copy = "docker_compose_copy:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/docker-compose-copy-to-remote"
+Issues = "https://github.com/yourusername/docker-compose-copy-to-remote/issues"
+
+[tool.setuptools]
+py-modules = ["docker_compose_copy"]
