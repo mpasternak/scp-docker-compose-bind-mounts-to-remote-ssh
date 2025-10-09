@@ -30,31 +30,31 @@ but you would have to copy them to that remote server anyways, so... also, I hop
 ### Via pipx (recommended)
 
 ```bash
-pipx install /path/to/docker_compose_copy.py
+pipx install /path/to/docker-compose-copy-to-remote
 ```
 
 Or install directly from the directory:
 
 ```bash
-cd docker_compose_copy.py
+cd docker-compose-copy-to-remote
 pipx install .
 ```
 
 ### Via pip
 
 ```bash
-pip install /path/to/docker_compose_copy.py
+pip install /path/to/docker-compose-copy-to-remote
 ```
 
 ### From source (development)
 
 ```bash
 git clone <repository-url>
-cd docker_compose_copy.py
+cd docker-compose-copy-to-remote
 pip install -e .
 ```
 
-After installation, the `docker_compose_copy.py` command will be available globally.
+After installation, the `docker-compose-copy` command will be available globally.
 
 ## Usage
 
@@ -62,23 +62,23 @@ After installation, the `docker_compose_copy.py` command will be available globa
 
 ```bash
 # Analyze default docker-compose.yml and copy files
-docker_compose_copy.py
+docker-compose-copy
 
 # Analyze specific file
-docker_compose_copy.py my-compose.yml
+docker-compose-copy my-compose.yml
 
 # Dry run (show what would be copied)
-docker_compose_copy.py --dry-run
+docker-compose-copy --dry-run
 
 # Use rsync for efficient transfers (recommended)
-docker_compose_copy.py --use-rsync
+docker-compose-copy --use-rsync
 
 # Specify custom remote base directory (e.g., /opt/volumes)
 # This will copy ./foo to /opt/volumes/foo on the remote
-docker_compose_copy.py --remote-base /opt/volumes
+docker-compose-copy --remote-base /opt/volumes
 
 # Skip checksum verification (always copy with scp)
-docker_compose_copy.py --skip-checksums
+docker-compose-copy --skip-checksums
 ```
 
 ### Options
@@ -96,7 +96,7 @@ docker_compose_copy.py --skip-checksums
 By default, the tool uses `scp` for file transfer but calculates SHA256 checksums to skip files that haven't changed:
 
 ```bash
-docker_compose_copy.py
+docker-compose-copy
 ```
 
 This will:
@@ -111,7 +111,7 @@ This will:
 For more efficient transfers, especially with large files or directories, use rsync:
 
 ```bash
-docker_compose_copy.py --use-rsync
+docker-compose-copy --use-rsync
 ```
 
 rsync advantages:
@@ -124,7 +124,7 @@ rsync advantages:
 To always copy all files without checksum verification:
 
 ```bash
-docker_compose_copy.py --skip-checksums
+docker-compose-copy --skip-checksums
 ```
 
 ## How it works
@@ -149,10 +149,10 @@ docker context create remote-host --docker "host=ssh://user@remote-host"
 docker context use remote-host
 
 # Run the utility
-docker_compose_copy.py
+docker-compose-copy
 
 # Or use rsync for better performance
-docker_compose_copy.py --use-rsync
+docker-compose-copy --use-rsync
 ```
 
 ## Example
@@ -171,7 +171,7 @@ services:
 When running with an SSH Docker context:
 
 ```bash
-$ docker_compose_copy.py
+$ docker-compose-copy
 
 === Docker Compose Copy to Remote ===
 Compose file: /path/to/docker-compose.yml
@@ -204,7 +204,7 @@ Files were transferred using the same relative paths as in docker-compose.yml.
 With rsync:
 
 ```bash
-$ docker_compose_copy.py --use-rsync
+$ docker-compose-copy --use-rsync
 
 === Syncing files to remote context via rsync ===
 Remote host: user@remote-host
@@ -249,7 +249,7 @@ volumes:
 
 ## Performance Tips
 
-1. **Use rsync for large projects**: `docker_compose_copy.py --use-rsync`
+1. **Use rsync for large projects**: `docker-compose-copy --use-rsync`
 2. **Use checksums for selective updates**: Default behavior skips unchanged files
 3. **For initial setup**: Consider using `--skip-checksums` to avoid checksum overhead
 4. **For repeated syncs**: rsync is most efficient as it only transfers file deltas
